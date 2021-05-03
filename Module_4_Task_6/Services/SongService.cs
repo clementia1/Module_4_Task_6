@@ -45,10 +45,8 @@ namespace Module_4_Task_6.Services
 
         public async Task<IReadOnlyCollection<Entities.Song>> GetSongsCreatedBeforeYoungestArtistBirthDate()
         {
-            var youngestArtistBirthDate = await _context.Artists.MaxAsync(a => a.DateOfBirth);
-
             var songs = await _context.Songs.AsNoTracking()
-                .Where(s => s.ReleasedDate < youngestArtistBirthDate)
+                .Where(s => s.ReleasedDate < _context.Artists.Max(a => a.DateOfBirth))
                 .ToListAsync();
 
             return songs;
