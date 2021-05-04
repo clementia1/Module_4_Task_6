@@ -15,6 +15,6 @@ namespace Module_4_Task_6.Entities
         public string Email { get; set; }
         public string InstagramUrl { get; set; }
 
-        public virtual ICollection<Song> Songs { get; set; } = new List<Song>();
+        public virtual ICollection<SongArtist> Songs { get; set; } = new List<SongArtist>();
     }
 }

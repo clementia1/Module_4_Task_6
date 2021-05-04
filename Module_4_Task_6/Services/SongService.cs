@@ -17,17 +17,16 @@ namespace Module_4_Task_6.Services
             _context = context;
         }
 
-        public async Task<IReadOnlyCollection<Song>> GetSongsWithTitleAndGenre()
+        public async Task GetSongsWithTitleAndGenre()
         {
-            var songs = await _context.Songs.AsNoTracking()
-                .Select(s => new Song
+            var songs = await _context.SongArtists
+                .Select(sa => new
                 {
-                    Title = s.Title,
-                    Artists = s.Artists.Select(a => new Artist { Name = a.Name }),
-                    Genre = s.Genre.Title
-                }).ToListAsync();
-
-            return songs;
+                    Song = sa.Song.Title,
+                    Artist = sa.Artist.Name,
+                    Genre = sa.Song.Genre.Title
+                })
+                .ToListAsync();
         }
 
         public async Task<IReadOnlyCollection<GenreStatistics>> GetSongsByGenre()

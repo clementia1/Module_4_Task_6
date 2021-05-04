@@ -16,6 +16,6 @@ namespace Module_4_Task_6.Entities
         public int GenreId { get; set; }
         public virtual Genre Genre { get; set; }
 
-        public virtual ICollection<Artist> Artists { get; set; } = new List<Artist>();
+        public virtual ICollection<SongArtist> Artists { get; set; } = new List<SongArtist>();
     }
 }

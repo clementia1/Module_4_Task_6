@@ -63,24 +63,24 @@ namespace Module_4_Task_6.Migrations
                 name: "SongArtist",
                 columns: table => new
                 {
-                    ArtistId = table.Column<int>(type: "int", nullable: false),
-                    SongId = table.Column<int>(type: "int", nullable: false)
+                    SongId = table.Column<int>(type: "int", nullable: false),
+                    ArtistId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SongArtist", x => new { x.ArtistId, x.SongId });
+                    table.PrimaryKey("PK_SongArtist", x => new { x.SongId, x.ArtistId });
                     table.ForeignKey(
                         name: "FK_SongArtist_Artist_ArtistId",
                         column: x => x.ArtistId,
                         principalTable: "Artist",
                         principalColumn: "ArtistId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_SongArtist_Song_SongId",
                         column: x => x.SongId,
                         principalTable: "Song",
                         principalColumn: "SongId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -89,33 +89,9 @@ namespace Module_4_Task_6.Migrations
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SongArtist_SongId",
+                name: "IX_SongArtist_ArtistId",
                 table: "SongArtist",
-                column: "SongId");
-
-            migrationBuilder.Sql("INSERT INTO Genre(Title) VALUES('folk')");
-            migrationBuilder.Sql("INSERT INTO Genre(Title) VALUES('hip hop')");
-            migrationBuilder.Sql("INSERT INTO Genre(Title) VALUES('deep house')");
-            migrationBuilder.Sql("INSERT INTO Genre(Title) VALUES('alternative rock')");
-            migrationBuilder.Sql("INSERT INTO Genre(Title) VALUES('house')");
-
-            migrationBuilder.Sql("INSERT INTO Song(Title, DurationSeconds, ReleasedDate, GenreId) VALUES('Your Power', '245', '2021-04-29', (SELECT GenreId FROM Genre WHERE Title = 'folk'))");
-            migrationBuilder.Sql("INSERT INTO Song(Title, DurationSeconds, ReleasedDate, GenreId) VALUES('Astronaut In The Ocean', '132', '2021-01-06', (SELECT GenreId FROM Genre WHERE Title = 'hip hop'))");
-            migrationBuilder.Sql("INSERT INTO Song(Title, DurationSeconds, ReleasedDate, GenreId) VALUES('The Business', '164', '2020-09-25', (SELECT GenreId FROM Genre WHERE Title = 'deep house'))");
-            migrationBuilder.Sql("INSERT INTO Song(Title, DurationSeconds, ReleasedDate, GenreId) VALUES('Shy Away', '155', '2021-04-07', (SELECT GenreId FROM Genre WHERE Title = 'alternative rock'))");
-            migrationBuilder.Sql("INSERT INTO Song(Title, DurationSeconds, ReleasedDate, GenreId) VALUES('BED', '178', '2021-02-26', (SELECT GenreId FROM Genre WHERE Title = 'house'))");
-
-            migrationBuilder.Sql("INSERT INTO Artist(Name, DateOfBirth) VALUES('Billie Eilish', '2001-12-18')");
-            migrationBuilder.Sql("INSERT INTO Artist(Name, DateOfBirth) VALUES('Masked Wolf', '1992-01-01')");
-            migrationBuilder.Sql("INSERT INTO Artist(Name, DateOfBirth) VALUES('Tiësto', '1969-01-17')");
-            migrationBuilder.Sql("INSERT INTO Artist(Name, DateOfBirth) VALUES('Twenty One Pilots', '2009-01-01')");
-            migrationBuilder.Sql("INSERT INTO Artist(Name, DateOfBirth) VALUES('Joel Corry', '1989-06-10')");
-
-            migrationBuilder.Sql("INSERT INTO SongArtist(SongId, ArtistId) VALUES((SELECT SongId FROM Song WHERE Title = 'Your Power'), (SELECT ArtistId FROM Artist WHERE Name = 'Billie Eilish'))");
-            migrationBuilder.Sql("INSERT INTO SongArtist(SongId, ArtistId) VALUES((SELECT SongId FROM Song WHERE Title = 'Astronaut In The Ocean'), (SELECT ArtistId FROM Artist WHERE Name = 'Masked Wolf'))");
-            migrationBuilder.Sql("INSERT INTO SongArtist(SongId, ArtistId) VALUES((SELECT SongId FROM Song WHERE Title = 'The Business'), (SELECT ArtistId FROM Artist WHERE Name = 'Tiësto'))");
-            migrationBuilder.Sql("INSERT INTO SongArtist(SongId, ArtistId) VALUES((SELECT SongId FROM Song WHERE Title = 'Shy Away'), (SELECT ArtistId FROM Artist WHERE Name = 'Twenty One Pilots'))");
-            migrationBuilder.Sql("INSERT INTO SongArtist(SongId, ArtistId) VALUES((SELECT SongId FROM Song WHERE Title = 'BED'), (SELECT ArtistId FROM Artist WHERE Name = 'Joel Corry'))");
+                column: "ArtistId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

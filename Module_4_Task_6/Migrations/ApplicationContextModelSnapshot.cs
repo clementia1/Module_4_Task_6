@@ -108,17 +108,17 @@ namespace Module_4_Task_6.Migrations
                     b.ToTable("Song");
                 });
 
-            modelBuilder.Entity("SongArtist", b =>
+            modelBuilder.Entity("Module_4_Task_6.Entities.SongArtist", b =>
                 {
-                    b.Property<int>("ArtistId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SongId")
                         .HasColumnType("int");
 
-                    b.HasKey("ArtistId", "SongId");
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("SongId");
+                    b.HasKey("SongId", "ArtistId");
+
+                    b.HasIndex("ArtistId");
 
                     b.ToTable("SongArtist");
                 });
@@ -134,24 +134,38 @@ namespace Module_4_Task_6.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("SongArtist", b =>
+            modelBuilder.Entity("Module_4_Task_6.Entities.SongArtist", b =>
                 {
-                    b.HasOne("Module_4_Task_6.Entities.Artist", null)
-                        .WithMany()
+                    b.HasOne("Module_4_Task_6.Entities.Artist", "Artist")
+                        .WithMany("Songs")
                         .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Module_4_Task_6.Entities.Song", null)
-                        .WithMany()
+                    b.HasOne("Module_4_Task_6.Entities.Song", "Song")
+                        .WithMany("Artists")
                         .HasForeignKey("SongId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Artist");
+
+                    b.Navigation("Song");
+                });
+
+            modelBuilder.Entity("Module_4_Task_6.Entities.Artist", b =>
+                {
+                    b.Navigation("Songs");
                 });
 
             modelBuilder.Entity("Module_4_Task_6.Entities.Genre", b =>
                 {
                     b.Navigation("Songs");
+                });
+
+            modelBuilder.Entity("Module_4_Task_6.Entities.Song", b =>
+                {
+                    b.Navigation("Artists");
                 });
 #pragma warning restore 612, 618
         }

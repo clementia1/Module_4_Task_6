@@ -16,6 +16,7 @@ namespace Module_4_Task_6
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<SongArtist> SongArtists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,6 +29,7 @@ namespace Module_4_Task_6
             modelBuilder.ApplyConfiguration(new ArtistConfiguration());
             modelBuilder.ApplyConfiguration(new SongConfiguration());
             modelBuilder.ApplyConfiguration(new GenreConfiguration());
+            modelBuilder.ApplyConfiguration(new SongArtistConfiguration());
         }
     }
 }

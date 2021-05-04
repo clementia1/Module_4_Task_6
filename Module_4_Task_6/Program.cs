@@ -11,7 +11,7 @@ namespace Module_4_Task_6
             await using (var context = new SampleContextFactory().CreateDbContext(args))
             {
                 var songService = new SongService(context);
-                await songService.GetSongsByGenre();
+                await songService.GetSongsWithTitleAndGenre();
             }
         }
     }
